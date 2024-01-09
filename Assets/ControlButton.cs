@@ -64,6 +64,10 @@ public class ControlButton : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
         pressTime = 0;
         isPressed = false;
         isSetParent = false;
+        foreach (var item in InputManager.Instance.RotateTargetList)
+        {
+            item.SetParent(null);
+        }
         //InputManager.Instance.isRotateBoth = false ;
     }
 
@@ -91,10 +95,10 @@ public class ControlButton : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
             parentPos /= InputManager.Instance.RotateTargetList.Count;
             InputManager.Instance.TargetParent.position = parentPos;
             InputManager.Instance.isRotateBoth = !InputManager.Instance.isRotateBoth;
-            //foreach (var item in InputManager.Instance.RotateTargetList)
-            //{
-            //    item.SetParent(InputManager.Instance.TargetParent);
-            //}
+            foreach (var item in InputManager.Instance.RotateTargetList)
+            {
+                item.SetParent(InputManager.Instance.TargetParent);
+            }
         }
         //Debug.Log("Long Press");
     }

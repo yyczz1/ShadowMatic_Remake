@@ -17,9 +17,9 @@ public class InputManager : MonoBehaviour
         }
     }
     public Camera WorldCam;
-    //public RaycastHit raycastHit;
     public Transform RotateTarget;
     public List<Transform> RotateTargetList;
+    public List<Quaternion> RotateTargetRotList = new List<Quaternion>();
     public Transform TargetParent;
 
     public bool isRotateBoth = false;
@@ -42,6 +42,10 @@ public class InputManager : MonoBehaviour
         {
             RotateTargetList.Add(go.transform);
         }
+        foreach (var go in goArray)
+        {
+            RotateTargetRotList.Add(go.transform.rotation);
+        }
 
         ScreenMesh = ScreenGO.GetComponent<MeshFilter>().mesh;
         ScreenNormal = ScreenMesh.normals[0];
@@ -63,7 +67,7 @@ public class InputManager : MonoBehaviour
         }
         if(Input.GetMouseButtonUp(0))
         {
-             canRotate = false;
+            canRotate = false;
         }
         if(canRotate)
         {
@@ -76,14 +80,23 @@ public class InputManager : MonoBehaviour
             }
             else
             {
-                foreach (var target in RotateTargetList)
+                //foreach (var target in RotateTargetList)
+                //{
+
+                //Quaternion oldRot = target.transform.localRotation;
+                //target.RotateAround(TargetParent.position, Vector3.up, -h);
+                //target.RotateAround(TargetParent.position, Vector3.right, v);
+                //target.transform.localRotation = oldRot;
+                //target.Rotate(0, -h, 0);
+                //}
+                for (int i = 0; i < RotateTargetList.Count; i++)
                 {
-                    //target.localRotation = Quaternion.AngleAxis(h, TargetParent.position) * target.localRotation;
-                    Quaternion oldRot = target.transform.localRotation;
-                    target.RotateAround(TargetParent.position, Vector3.up, -h);
-                    target.RotateAround(TargetParent.position, Vector3.right, v);
-                    target.transform.localRotation = oldRot;
-                    //target.Rotate(0, -h, 0);
+                    RotateTargetRotList[i] = RotateTargetList[i].rotation;
+                }
+                TargetParent.Rotate(v, -h, 0);
+                for (int i = 0; i < RotateTargetList.Count; i++)
+                {
+                   RotateTargetList[i].rotation = RotateTargetRotList[i];
                 }
             }
         }
