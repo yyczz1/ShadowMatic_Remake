@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2281b9f54b05044eb4863bd6dc3e419, type: 3}
+  m_Name: Level2Data
+  m_EditorClassIdentifier: 
+  Model1: {fileID: 7095299386574129845, guid: 8b31cc9d041ed3746b3ff9177262806f, type: 3}
+  HasModel1FlipSet: 1
+  Threshold1: 10
+  PosThreshold1: 0.025
+  StartRotation1: {x: 0, y: 0, z: 0}
+  ResultRotation1: {x: 0, y: 0, z: 0}
+  ResultRotation1_1: {x: 0, y: 180, z: 0}
+  ResultPosition1: {x: -2.94, y: 1.985, z: -4.594}
+  ResultPosition1_1: {x: 0, y: 0, z: 0}
+  Model2: {fileID: -7991844378591633044, guid: 8b31cc9d041ed3746b3ff9177262806f, type: 3}
+  HasModel2FlipSet: 1
+  Threshold2: 10
+  PosThreshold2: 0.025
+  StartRotation2: {x: 0, y: 0, z: 0}
+  ResultRotation2: {x: 0, y: 0, z: 0}
+  ResultRotation2_1: {x: 0, y: 180, z: 0}
+  ResultPosition2: {x: -2.91, y: 2.544, z: -6.746}
+  ResultPosition2_1: {x: 0, y: 0, z: 0}
+  ParentThreshold: 10
+  ParentRotationAll: {x: -72.241, y: -43.307, z: 42.722}
+  ParentRotationAll_1: {x: 0, y: 0, z: 0}
