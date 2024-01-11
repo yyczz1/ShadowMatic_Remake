@@ -181,4 +181,16 @@ public class InputManager : MonoBehaviour
             TargetParent.localRotation = Quaternion.AngleAxis(degree, ScreenNormal) * TargetParent.localRotation;
         }
     }
+
+    public List<Quaternion> GetAllRotations()
+    {
+        List<Quaternion> rotations = new List<Quaternion>();
+        //rotations.Add(gameObject.transform.rotation);
+        foreach (var caster in RotateTargetList)
+        {
+            rotations.Add(caster.gameObject.transform.rotation);
+        }
+
+        return rotations;
+    }
 }

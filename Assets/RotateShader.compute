@@ -1,0 +1,36 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+Texture2D<float4> Texture;
+RWTexture2D<float4> Result;
+
+float Degree;
+float Sin;
+float Cos;
+float Width;
+float Height;
+
+[numthreads(10,10,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    const float2x2 rotationMatrix = float2x2(
+        Cos, Sin,
+        -Sin,  Cos);
+
+    const float u = id.x / Width;
+    const float v = id.y / Height;
+
+    const float2 center = float2(Width, Height) / 2;
+    float2 pos = mul(rotationMatrix, id - center) + center;
+
+    if (min(pos.x, pos.y) < 0 || max(pos.x - Width, pos.y - Height) >= 0)
+    {
+        Result[id.xy] = float4(1,1,1,1);
+    }
+    else
+    {
+        Result[id.xy] = Texture[pos.xy];
+    }
+}
