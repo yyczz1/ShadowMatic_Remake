@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static UnityEngine.GraphicsBuffer;
 
 public class ResultComparasion : MonoBehaviour
@@ -14,7 +15,8 @@ public class ResultComparasion : MonoBehaviour
 
     #region snapshot comparasion
     public SnapShotComparasion SnapShotComparasion;
-    public Texture2D successfulSnapshot;
+    public List<Texture2D> successfulSnapshots;
+    [HideInInspector] public List<List<Quaternion>> successfulRotations;
 
     public float resultValue;
     public int resultIndex;
@@ -85,6 +87,8 @@ public class ResultComparasion : MonoBehaviour
     {
         //Debug.Log("TargetTexture" + TargetTexture);
         //targetTexturePixels = TargetTexture.GetPixels(0, 0, TargetTexture.width, TargetTexture.height);
+        (successfulSnapshots, successfulRotations) = SnapShotComparasion.LoadSnapshots(
+                Path.Combine("Assets/Resources/Snapshots", $"{SceneManager.GetActiveScene().name}_snapshot"));
     }
 
     // Update is called once per frame
@@ -99,7 +103,7 @@ public class ResultComparasion : MonoBehaviour
         //    InputManager.Instance.RotateTargetList[1].position = Target2WorldPos;
         //    InputManager.Instance.RotateTargetList[1].eulerAngles = Level1DataSO.ResultRotation2;
         //}
-        //(resultValue ,resultIndex)= CalculateCurrentResult();
+        (resultValue ,resultIndex)= CalculateCurrentResult();
         if (is1Solved && is2Solved && is1PosSolved && is2PosSolved)
         {
             if (!isSuccess) 
@@ -164,18 +168,18 @@ public class ResultComparasion : MonoBehaviour
     {
         int bestResultIndex = -1;
         float bestResult = -1.0f;
-        //for (int i = 0; i < gameManager.successfulSnapshots.Count; i++)
-        //{
+        for (int i = 0; i < successfulSnapshots.Count; i++)
+        {
             float snapshotsComparisonResultPercent =
-                SnapShotComparasion.CompareSnapshotWithProjection(successfulSnapshot);
+                SnapShotComparasion.CompareSnapshotWithProjection(successfulSnapshots[i]);
 
-        //    if (snapshotsComparisonResultPercent >= bestResult)
-        //    {
-        //        bestResult = snapshotsComparisonResultPercent;
-        //        bestResultIndex = i;
-        //    }
-        //}
-        Debug.Log("bestResult" + bestResult + " bestResultIndex " + bestResultIndex);
+            if (snapshotsComparisonResultPercent >= bestResult)
+            {
+                bestResult = snapshotsComparisonResultPercent;
+                bestResultIndex = i;
+            }
+        }
+        //Debug.Log("bestResult" + bestResult + " bestResultIndex " + bestResultIndex);
         return (bestResult, bestResultIndex);
     }
     #endregion

@@ -13,7 +13,7 @@ public class CaptureCamera : MonoBehaviour
         _camera = GetComponent<Camera>();
         _renderTexture = _camera.targetTexture;
         //_camera.RenderWithShader(BlackAndWhiteShader,null);
-        //_camera.SetReplacementShader(BlackAndWhiteShader, null);
+        _camera.SetReplacementShader(BlackAndWhiteShader, null);
     }
 
 

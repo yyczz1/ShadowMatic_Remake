@@ -135,7 +135,6 @@ public class SnapShotComparasion : MonoBehaviour
             rotateShader.SetFloat("Sin", Mathf.Sin(degree));
             rotateShader.SetFloat("Cos", Mathf.Cos(degree));
             rotateShader.SetFloat("Rad", Mathf.Deg2Rad * degree);
-            Debug.Log("width" + (float)snapshot.width+ "_threadsX"+ _threadsX);
             rotateShader.Dispatch(
                 _kernel,
                 Mathf.CeilToInt((float)snapshot.width / _threadsX),
